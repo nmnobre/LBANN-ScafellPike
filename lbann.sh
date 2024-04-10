@@ -13,7 +13,7 @@ module load python3/3.10
 
 git clone --depth=100 --branch=releases/v0.21 https://github.com/spack/spack.git
 export SPACK_DISABLE_LOCAL_CONFIG=true
-export SPACK_USER_CACHE_PATH=/tmp/spack
+export SPACK_USER_CACHE_PATH=$PWD/tmp/spack
 source spack/share/spack/setup-env.sh
 
 ### Install gcc 11.2.0
@@ -45,6 +45,7 @@ export Hydrogen_DIR=$(spack find --paths hydrogen | head -2 | tail -1 | awk '{pr
 
 spack -k install lbann@develop %gcc@11.2.0 +numpy +cuda cuda_arch=70 ^hydrogen@develop+al ^aluminum@master ^py-numpy
 
-### Revert CUDA workaround
+### Revert CUDA workaround and remove tmp cache
 
 unlink $CUDA_DIR/lib64/libnvidia-ml.so.1
+rm -rf $SPACK_USER_CACHE_PATH
