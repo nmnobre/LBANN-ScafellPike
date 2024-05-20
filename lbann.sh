@@ -16,6 +16,16 @@ export SPACK_DISABLE_LOCAL_CONFIG=true
 export SPACK_USER_CACHE_PATH=$PWD/tmp/spack
 source spack/share/spack/setup-env.sh
 
+### Tell Spack about LSF
+
+cat <<EOF > spack/etc/spack/packages.yaml
+packages:
+  lsf:
+    externals:
+    - spec: lsf@10.1
+      prefix: $EGO_TOP/10.1
+EOF
+
 ### Install gcc 11.2.0
 
 spack -k install gcc@11.2.0
@@ -24,7 +34,7 @@ spack compiler find
 
 ### Try to install LBANN and its dependencies for the 1st time
 
-spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
+spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
 
 ### Workaround missing CUDA for PMIx
 
@@ -35,7 +45,7 @@ cd -
 
 ### 2nd time
 
-spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
+spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
 
 ### Workaround failing CMake for DiHydrogen
 
@@ -43,7 +53,7 @@ export Hydrogen_DIR=$(spack find --paths hydrogen | tail -1 | awk '{print $2}')
 
 ### 3rd time ('s a charm)
 
-spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
+spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
 
 ### Revert CUDA workaround and remove tmp cache
 
