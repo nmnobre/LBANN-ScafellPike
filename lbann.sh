@@ -28,7 +28,7 @@ spack -k install lbann@develop %gcc@11.2.0 +numpy +cuda cuda_arch=70 ^hydrogen@d
 
 ### Workaround missing CUDA for PMIx
 
-export CUDA_DIR=$(spack find --paths cuda | head -2 | tail -1 | awk '{print $2}')
+export CUDA_DIR=$(spack find --paths cuda | tail -1 | awk '{print $2}')
 cd $CUDA_DIR/lib64
 ln -sf stubs/libnvidia-ml.so libnvidia-ml.so.1
 cd -
@@ -39,7 +39,7 @@ spack -k install lbann@develop %gcc@11.2.0 +numpy +cuda cuda_arch=70 ^hydrogen@d
 
 ### Workaround failing CMake for DiHydrogen
 
-export Hydrogen_DIR=$(spack find --paths hydrogen | head -2 | tail -1 | awk '{print $2}')
+export Hydrogen_DIR=$(spack find --paths hydrogen | tail -1 | awk '{print $2}')
 
 ### 3rd time ('s a charm)
 
