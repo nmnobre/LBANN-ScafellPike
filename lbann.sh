@@ -34,7 +34,7 @@ spack compiler find
 
 ### Try to install LBANN and its dependencies for the 1st time
 
-spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
+spack -k install -n lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
 
 ### Workaround missing CUDA for PMIx
 
@@ -45,7 +45,7 @@ cd -
 
 ### 2nd time
 
-spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
+spack -k install -n lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
 
 ### Workaround failing CMake for DiHydrogen
 
@@ -53,7 +53,7 @@ export Hydrogen_DIR=$(spack find --paths hydrogen | tail -1 | awk '{print $2}')
 
 ### 3rd time ('s a charm)
 
-spack -k install lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
+spack -k install -n lbann@develop %gcc@11.2.0 +distconv +numpy +vision +cuda cuda_arch=70 ^openmpi schedulers=lsf ^hydrogen@develop+al ^aluminum@master ^py-numpy ^spdlog@1.11.0
 
 ### Revert CUDA workaround and remove tmp cache
 
