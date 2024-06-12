@@ -42,7 +42,7 @@ spack compiler find
 
 ### Install AMS and its dependencies
 
-spack -k install -n ams %gcc@11.2.0 +examples +torch +cuda cuda_arch=70 ^openmpi +cuda schedulers=lsf ^py-torch@2.0.1
+spack -k install -n ams %gcc@11.2.0 +examples +torch +verbose +cuda cuda_arch=70 ^openmpi +cuda schedulers=lsf ^py-torch@2.0.1
 
 ### Remove tmp cache
 
