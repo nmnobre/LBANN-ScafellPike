@@ -16,12 +16,13 @@ export SPACK_DISABLE_LOCAL_CONFIG=true
 export SPACK_USER_CACHE_PATH=$PWD/tmp/spack
 source spack/share/spack/setup-env.sh
 
-### Patch Spack: .so for SLEEF, newer version of AMS, and https git link for AMS
+### Patch: .so for SLEEF, and newer version, https git link and compilation/linking fixes for AMS
 
 cd spack
 git cherry-pick 8c061e5
 git cherry-pick 300d53d
 git cherry-pick a49b2f4
+git apply ../ams.patch
 cd -
 
 ### Tell Spack about LSF

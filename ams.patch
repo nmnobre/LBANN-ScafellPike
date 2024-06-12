@@ -1,0 +1,40 @@
+diff --git a/var/spack/repos/builtin/packages/ams/ams.patch b/var/spack/repos/builtin/packages/ams/ams.patch
+new file mode 100644
+index 0000000000..c7d34acc06
+--- /dev/null
++++ b/var/spack/repos/builtin/packages/ams/ams.patch
+@@ -0,0 +1,12 @@
++diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
++
++--- a/examples/CMakeLists.txt
+++++ b/examples/CMakeLists.txt
++@@ -25,6 +25,7 @@
++       set_source_files_properties(app/eos_ams.cpp PROPERTIES LANGUAGE CUDA)
++       set_source_files_properties(app/eos_ams.cpp PROPERTIES COMPILE_FLAGS "--expt-extended-lambda")
++       set_target_properties(${binary_name} PROPERTIES CUDA_ARCHITECTURES "${AMS_CUDA_ARCH}")
+++      set_property(TARGET ${binary_name} PROPERTY CUDA_SEPARABLE_COMPILATION ON)
++
++       if (WITH_RZ)
++           set_source_files_properties(${RZ_AMS_SOURCES} PROPERTIES LANGUAGE CUDA)
+diff --git a/var/spack/repos/builtin/packages/ams/package.py b/var/spack/repos/builtin/packages/ams/package.py
+index d52f37951b..e67e3861f3 100644
+--- a/var/spack/repos/builtin/packages/ams/package.py
++++ b/var/spack/repos/builtin/packages/ams/package.py
+@@ -18,7 +18,7 @@ class Ams(CMakePackage, CudaPackage):
+     version(
+         "11.08.23.alpha",
+         tag="11.08.23.alpha",
+-        commit="1a42b29268bb916dae301654ca0b92fdfe288732",
++        commit="15b4190097d3fe23b46f7bebc0dfc5c4b88f2ab4",
+         submodules=False,
+     )
+     version(
+@@ -48,6 +48,8 @@ class Ams(CMakePackage, CudaPackage):
+         description="Enable AMSLib verbose output (controlled by environment variable)",
+     )
+
++    patch("ams.patch")
++
+     depends_on("umpire")
+     depends_on("mpi", when="+mpi")
+
